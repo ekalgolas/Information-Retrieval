@@ -1,3 +1,4 @@
+package stemming;
 /*
  * File: Stemmer.java Copyright 2010 - The Cytoscape Consortium (www.cytoscape.org) Code written by: Layla Oesper Authors: Layla Oesper, Ruth Isserlin, Daniele
  * Merico This library is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the

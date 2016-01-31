@@ -1,3 +1,4 @@
+package text;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class OutputFormatter {
 				buf.append('\t');
 			}
 
-			buf.append("\n\n");
+			buf.append('\n');
 		}
 
 		// Return the output as string
