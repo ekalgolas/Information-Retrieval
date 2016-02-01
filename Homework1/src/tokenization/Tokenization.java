@@ -33,7 +33,7 @@ public class Tokenization
 	public static void main(final String args[]) throws IOException
 	{
 		// Record the start time of the program
-		final long starttime = System.currentTimeMillis();
+		final long startTime = System.currentTimeMillis();
 
 		// Validate command line arguments
 		final String dataPath = validateArguments(args);
@@ -50,9 +50,9 @@ public class Tokenization
 		displayResults(totalDocuments, totalWords, tokenMap, "TOKENIZATION");
 
 		// Display time taken
-		final long endtime = System.currentTimeMillis();// End Time for Tokenization
-		final long runningtime = endtime - starttime;// Total Time taken to Tokenization.
-		System.out.println("Time taken to acquire the text characteristics is: " + runningtime + " milliseconds\n");
+		final long endTime = System.currentTimeMillis();
+		final long runningTime = endTime - startTime;
+		System.out.println("Time taken to acquire the text characteristics is: " + runningTime + " milliseconds\n");
 
 		// Call stemming
 		final Stemming stemming = new Stemming();
