@@ -1,4 +1,5 @@
 package text;
+
 import java.util.Comparator;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class SortableMap implements Comparator<String> {
 	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public int compare(final String sone, final String stwo) {
-		return Integer.compare(this.map.get(sone), this.map.get(stwo));
+	public int compare(final String s1, final String s2) {
+		return this.map.get(s1) >= this.map.get(s2) ? 1 : -1;
 	}
 }

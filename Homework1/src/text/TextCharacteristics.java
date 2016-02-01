@@ -1,6 +1,8 @@
 package text;
+
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -31,14 +33,14 @@ public class TextCharacteristics {
 
 	/**
 	 * Get 30 most frequent tokens in the data
-	 * 
+	 *
 	 * @param tokenMap
 	 *            token map of the data
-	 * @return Map of 30 most frequent tokens in descending order of frequency
+	 * @return List of 30 most frequent tokens in descending order of frequency
 	 */
-	public static Map<String, Integer> getTop30MostFrequent(final HashMap<String, Integer> tokenMap) {
+	public static List<String> getTop30MostFrequent(final HashMap<String, Integer> tokenMap) {
 		// Get a map for result
-		final Map<String, Integer> top30Map = new HashMap<>();
+		final List<String> top30List = new ArrayList<>();
 
 		// Sort the map using sortable map wrapper class
 		final SortableMap sortableMap = new SortableMap(tokenMap);
@@ -52,11 +54,10 @@ public class TextCharacteristics {
 				break;
 			}
 
-			// Put the key and frequency in result
-			final int frequency = tokenMap.get(key);
-			top30Map.put(key, frequency);
+			// Put the key in result
+			top30List.add(key);
 		}
 
-		return top30Map;
+		return top30List;
 	}
 }

@@ -1,4 +1,5 @@
 package tokenization;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -38,10 +39,10 @@ public class Parser {
 			} else {
 				// Else, read this file
 				this.readFile(file);
-			}
 
-			// Increment total number of documents after parsing
-			this.setTotalDocuments(this.getTotalDocuments() + 1);
+				// Increment total number of documents after parsing
+				this.setTotalDocuments(this.getTotalDocuments() + 1);
+			}
 		}
 	}
 
@@ -73,7 +74,7 @@ public class Parser {
 					}
 
 					// Increment occurrence of this word in token map
-					final int count = this.getTokenMap().getOrDefault(word, 0);
+					final int count = this.getTokenMap().containsKey(word) ? this.getTokenMap().get(word) : 0;
 					this.getTokenMap().put(word, count + 1);
 
 					// Increment the count of total words
@@ -86,7 +87,7 @@ public class Parser {
 	/**
 	 * <pre>
 	 *  Handles:-
-	 *
+	 * 
 	 *  A. Upper and lower case words (e.g. "People", "people", "Apple", "apple")
 	 *  B. Words with dashes (e.g. "1996-97", "middle-class", "30-year", "tean-ager")
 	 *  C. Possessives (e.g. "sheriff's", "university's")

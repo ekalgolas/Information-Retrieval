@@ -1,4 +1,5 @@
 package stemming;
+
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -40,7 +41,7 @@ public class Stemming {
 
 			// Get the stemmed word and map its occurence
 			final String stemWord = stemmer.toString();
-			final int count = this.getStemsMap().getOrDefault(stemWord, 0);
+			final int count = this.getStemsMap().containsKey(stemWord) ? this.getStemsMap().get(stemWord) : 0;
 			this.getStemsMap().put(stemWord, count + 1);
 
 			// Count total stemmed words

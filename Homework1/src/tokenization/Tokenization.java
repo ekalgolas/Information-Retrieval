@@ -3,8 +3,7 @@ package tokenization;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -131,9 +130,9 @@ public class Tokenization
 		// Add top 30 frequent words
 		outputFormatter.addRow(" ", " ");
 		outputFormatter.addRow("WORD", "FREQUENCY");
-		final Map<String, Integer> top30Map = TextCharacteristics.getTop30MostFrequent(tokenMap);
-		for (final Entry<String, Integer> entry : top30Map.entrySet()) {
-			outputFormatter.addRow(entry.getKey(), entry.getValue().toString());
+		final List<String> top30Map = TextCharacteristics.getTop30MostFrequent(tokenMap);
+		for (final String key : top30Map) {
+			outputFormatter.addRow(key, tokenMap.get(key).toString());
 		}
 
 		outputFormatter.addRow(" ", " ");
