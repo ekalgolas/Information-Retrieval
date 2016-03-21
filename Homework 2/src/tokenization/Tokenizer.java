@@ -1,9 +1,10 @@
 package tokenization;
 
 import java.io.File;
+import java.util.List;
 
-import indexer.StorageManager;
 import stemming.Stemming;
+import store.StorageManager;
 
 /**
  * Class that implements generating tokens and calling storage manager on them
@@ -11,6 +12,8 @@ import stemming.Stemming;
  * @author Ekal.Golas
  */
 public class Tokenizer {
+	public static StanfordLemmatizer lemmatizer = new StanfordLemmatizer();
+
 	/**
 	 * Tokenizes and stores the index characteristics from the words
 	 *
@@ -20,27 +23,24 @@ public class Tokenizer {
 	 *            Line which needs to be tokenized
 	 * @param storageManager
 	 *            Storage manager to be updated
-	 * @param stem
-	 *            Whether to stem the token or not
 	 */
-	public void tokenize(final File file, String line, final StorageManager storageManager, final boolean stem) {
+	public void tokenize(final File file, String line, final StorageManager storageManager) {
 		// Transform the line in order to tokenize it
 		line = this.transformText(line);
 
 		// Get and read each token
 		final String[] words = line.split(" ");
-		for (String word : words) {
+		for (final String word : words) {
 			// Skip if word is empty
 			if (word == null || word.length() < 1) {
 				continue;
 			}
 
-			// Stem if required
-			if (stem) {
-				word = Stemming.stem(word);
-			}
+			// Stem and lemmatize
+			final String stem = Stemming.stem(word);
+			final List<String> lemma = lemmatizer.lemmatize(word);
 
-			storageManager.store(word, file);
+			storageManager.store(word, lemma, stem, file);
 		}
 	}
 
