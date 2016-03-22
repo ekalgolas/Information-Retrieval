@@ -1,10 +1,7 @@
-package tokenization;
+
 
 import java.io.File;
 import java.util.List;
-
-import stemming.Stemming;
-import store.StorageManager;
 
 /**
  * Class that implements generating tokens and calling storage manager on them

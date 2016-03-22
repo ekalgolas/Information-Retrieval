@@ -1,5 +1,3 @@
-package text;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,10 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import store.DocumentProperty;
-import store.Properties;
-import store.StorageManager;
 
 /**
  * Class that provides methods to compute the text characteristics of the input data that is required to display results
@@ -46,8 +40,7 @@ public class TextCharacteristics {
 					tf += dictionary.get(term).getTermFreq().get(entry.getKey());
 
 					// Increment string size for key and integer size for each, tf, df, max_tf and doclen
-					lists += Character.SIZE * entry.getKey().length();
-					lists += Integer.SIZE * 4;
+					lists += Integer.SIZE / 8 * 4;
 				}
 
 				formatter.addRow(term, String.valueOf(tf), String.valueOf(dictionary.get(term).getDocFreq()), lists + " bytes");

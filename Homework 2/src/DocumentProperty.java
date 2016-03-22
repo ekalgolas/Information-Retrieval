@@ -1,4 +1,4 @@
-package store;
+
 
 /**
  * Stores the length and maximum frequency properties for a document
