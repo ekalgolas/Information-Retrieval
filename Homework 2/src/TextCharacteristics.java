@@ -71,7 +71,7 @@ public class TextCharacteristics {
 			final int tf = properties.getTermFreq().get(string);
 			final int max_tf = properties.getPostingFile().get(string).getMaxFreq();
 			final int doclen = properties.getPostingFile().get(string).getDoclen();
-			formatter.addRow(string, String.valueOf(tf), String.valueOf(max_tf), String.valueOf(doclen));
+			formatter.addRow("cranfield" + string, String.valueOf(tf), String.valueOf(max_tf), String.valueOf(doclen));
 		}
 		return formatter;
 	}
@@ -120,10 +120,10 @@ public class TextCharacteristics {
 			if (max < entry.getValue().getMaxFreq()) {
 				docs.clear();
 				max = entry.getValue().getMaxFreq();
-				docs.add(entry.getKey());
+				docs.add("cranfield" + entry.getKey() + " with TF = " + max);
 			} else if (max == entry.getValue().getMaxFreq()) {
 				// If max is equal to df, add this term to the list
-				docs.add(entry.getKey());
+				docs.add("cranfield" + entry.getKey() + " with TF = " + max);
 			}
 		}
 
@@ -147,10 +147,10 @@ public class TextCharacteristics {
 			if (max < entry.getValue().getDoclen()) {
 				docs.clear();
 				max = entry.getValue().getDoclen();
-				docs.add(entry.getKey());
+				docs.add("cranfield" + entry.getKey() + " with Doclen = " + max);
 			} else if (max == entry.getValue().getDoclen()) {
 				// If max is equal to df, add this term to the list
-				docs.add(entry.getKey());
+				docs.add("cranfield" + entry.getKey() + " with Doclen = " + max);
 			}
 		}
 

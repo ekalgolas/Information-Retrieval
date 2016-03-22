@@ -1,17 +1,17 @@
 #################################################################################
 Index_Version1.uncompressed                            	1407138 bytes	
-Creation time for Index_Version1.uncompressed          	186 ms       	
+Creation time for Index_Version1.uncompressed          	190 ms       	
 Number of inverted lists in Index_Version1.uncompressed	7242         	
 
 Index_Version1.compressed                  	897340	
-Creation time for Index_Version1.compressed	840 ms	
+Creation time for Index_Version1.compressed	826 ms	
 
 Index_Version2.uncompressed                            	1372762 bytes	
-Creation time for Index_Version2.uncompressed          	155 ms       	
+Creation time for Index_Version2.uncompressed          	162 ms       	
 Number of inverted lists in Index_Version2.uncompressed	6373         	
 
 Index_Version2.compressed                  	737299	
-Creation time for Index_Version2.compressed	782 ms	
+Creation time for Index_Version2.compressed	879 ms	
 
 #################################################################################
 #################################################################################
@@ -40,10 +40,10 @@ shock   	737 	239	3824 bytes
 #################################################################################
 NASA: DF = 145
 
-DOC-ID	TF	MAX_TF	DOCLEN	
-0053  	1 	11    	206   	
-0058  	1 	6     	171   	
-0068  	1 	4     	114   	
+DOC-ID       	TF	MAX_TF	DOCLEN	
+cranfield0053	1 	11    	206   	
+cranfield0058	1 	6     	171   	
+cranfield0068	1 	4     	114   	
 
 #################################################################################
 INDEX 1
@@ -6334,8 +6334,8 @@ degreer              	1
 walkerhj             	1 	
 
 
-Documents with largest max_tf: 0673
-Documents with largest doclen: 0798
+Documents with largest max_tf: cranfield0673 with TF = 27
+Documents with largest doclen: cranfield0798 with Doclen = 665
 #################################################################################
 
-Total running time: 27646 milliseconds
+Total running time: 28087 milliseconds
