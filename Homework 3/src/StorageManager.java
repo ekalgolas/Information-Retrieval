@@ -1,9 +1,11 @@
-
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * Class to store all the characteristics of the indexes
@@ -35,13 +37,18 @@ public class StorageManager {
 	 *            Lemma of the word
 	 * @param file
 	 *            File of the document where the word came from
+	 * @throws IOException
 	 */
-	public void store(final String word, final List<String> lemma, final File file) {
+	public void store(final String word, final List<String> lemma, final File file) throws IOException {
 		// Create document properties
 		final String doc = file.getName().replaceAll("[^\\d]", "");
-		if (!StorageManager.docProperties.containsKey(doc)) {
+		if (!docProperties.containsKey(doc)) {
 			docProperties.put(doc, new DocumentProperty());
 		}
+
+		// Set document headline
+		final String headline = getHeadLine(file);
+		docProperties.get(doc).setHeadline(headline);
 
 		if (!StorageManager.stopwords.contains(word)) {
 			int count = 0;
@@ -53,14 +60,36 @@ public class StorageManager {
 			}
 
 			// Update the term with maximum frequency for this document
-			if (StorageManager.docProperties.get(doc).getMaxFreq() < count + 1) {
-				StorageManager.docProperties.get(doc).setMaxFreq(count + 1);
+			if (docProperties.get(doc).getMaxFreq() < count + 1) {
+				docProperties.get(doc).setMaxFreq(count + 1);
 			}
 		}
 
 		// Increment number of words in the document
-		final int len = StorageManager.docProperties.get(doc).getDoclen();
-		StorageManager.docProperties.get(doc).setDoclen(len + 1);
+		final int len = docProperties.get(doc).getDoclen();
+		docProperties.get(doc).setDoclen(len + 1);
+	}
+
+	/**
+	 * Get document headline
+	 *
+	 * @param file
+	 *            File for the document
+	 * @return Headline as a string
+	 * @throws IOException
+	 */
+	private static String getHeadLine(final File file) throws IOException {
+		// Read file
+		final String data = new String(Files.readAllBytes(file.toPath()));
+
+		// Match the title part and return the value
+		final Pattern pattern = Pattern.compile("<.?title>", Pattern.CASE_INSENSITIVE);
+		final String[] parts = pattern.split(data);
+		if (parts.length > 1) {
+			return parts[1].replace("\n", " ");
+		} else {
+			return "";
+		}
 	}
 
 	/**

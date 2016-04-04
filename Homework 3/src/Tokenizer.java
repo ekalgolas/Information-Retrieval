@@ -1,5 +1,5 @@
-
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -19,8 +19,9 @@ public class Tokenizer {
 	 *            Line which needs to be tokenized
 	 * @param storageManager
 	 *            Storage manager to be updated
+	 * @throws IOException
 	 */
-	public void tokenize(final File file, String line, final StorageManager storageManager) {
+	public void tokenize(final File file, String line, final StorageManager storageManager) throws IOException {
 		// Transform the line in order to tokenize it
 		line = this.transformText(line);
 

@@ -1,13 +1,12 @@
-
-
 /**
  * Stores the length and maximum frequency properties for a document
  *
  * @author Ekal.Golas
  */
 public class DocumentProperty {
-	private int	doclen;
-	private int	maxFreq;
+	private int		doclen;
+	private int		maxFreq;
+	private String	headline;
 
 	/**
 	 * @return the doclen
@@ -37,5 +36,20 @@ public class DocumentProperty {
 	 */
 	public final void setMaxFreq(final int maxFreq) {
 		this.maxFreq = maxFreq;
+	}
+
+	/**
+	 * @return the headline
+	 */
+	public String getHeadline() {
+		return this.headline;
+	}
+
+	/**
+	 * @param headline
+	 *            the headline to set
+	 */
+	public void setHeadline(final String headline) {
+		this.headline = headline;
 	}
 }
