@@ -61,6 +61,15 @@ public class TextCharacteristics {
 		return formatter;
 	}
 
+	/**
+	 * Gets vector representation of top 5 ranked documents
+	 *
+	 * @param queryMap
+	 *            Map of weights
+	 * @param docMap
+	 *            Map of document term weights
+	 * @return Vector representation of the document as a string
+	 */
 	public String getTopFiveDocumentRepresentation(final Map<String, Double> queryMap, final Map<String, Map<String, Double>> docMap) {
 		// Get a string builder for result
 		final StringBuilder builder = new StringBuilder();
@@ -97,6 +106,13 @@ public class TextCharacteristics {
 		return builder.toString();
 	}
 
+	/**
+	 * Gets query representation
+	 *
+	 * @param dictionary
+	 *            Dictionary representing the query
+	 * @return Vector representation as a string
+	 */
 	public String getQueryRepresentation(final Map<String, Double> dictionary) {
 		final StringBuilder builder = new StringBuilder();
 		for (final Entry<String, Double> term : dictionary.entrySet()) {

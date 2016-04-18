@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * Class to process a query and build W1 and W2 tables for it
@@ -90,18 +89,6 @@ public class QueryProcessor {
 				// Update w1 and w2 weights
 				this.updateWeights(collectionSize, term, df, docID, maxtf, doclen, tf);
 			}
-		}
-
-		// Compute average
-		for (final Entry<String, Double> entry : this.W1.entrySet()) {
-			final int doclen = StorageManager.getDocProperties().get(entry.getKey()).getDoclen();
-			final double weight = entry.getValue() / doclen;
-			this.W1.put(entry.getKey(), weight);
-		}
-		for (final Entry<String, Double> entry : this.W2.entrySet()) {
-			final int doclen = StorageManager.getDocProperties().get(entry.getKey()).getDoclen();
-			final double weight = entry.getValue() / doclen;
-			this.W2.put(entry.getKey(), weight);
 		}
 	}
 
