@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +9,7 @@ import java.util.Map.Entry;
  * @author Ekal.Golas
  */
 public class Dictionary {
-	private final Map<String, Properties> lemmaDictionary;
+	private final Map<String, Properties>	lemmaDictionary;
 
 	/**
 	 * Default constructor
