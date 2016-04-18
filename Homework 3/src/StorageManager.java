@@ -57,17 +57,20 @@ public class StorageManager {
 			for (final String string : lemma) {
 				count = this.lemmaMap.containsKey(string) ? this.lemmaMap.get(string) : 0;
 				this.lemmaMap.put(string, count + 1);
+
+				// Add this word to set of words
+				docProperties.get(doc).getWords().add(string);
 			}
 
 			// Update the term with maximum frequency for this document
 			if (docProperties.get(doc).getMaxFreq() < count + 1) {
 				docProperties.get(doc).setMaxFreq(count + 1);
 			}
-		}
 
-		// Increment number of words in the document
-		final int len = docProperties.get(doc).getDoclen();
-		docProperties.get(doc).setDoclen(len + 1);
+			// Increment number of words in the document
+			final int len = docProperties.get(doc).getDoclen();
+			docProperties.get(doc).setDoclen(len + 1);
+		}
 	}
 
 	/**
@@ -86,7 +89,7 @@ public class StorageManager {
 		final Pattern pattern = Pattern.compile("<.?title>", Pattern.CASE_INSENSITIVE);
 		final String[] parts = pattern.split(data);
 		if (parts.length > 1) {
-			return parts[1].replace("\n", " ");
+			return parts[1].replace("\n", "");
 		} else {
 			return "";
 		}

@@ -1,12 +1,23 @@
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Stores the length and maximum frequency properties for a document
  *
  * @author Ekal.Golas
  */
 public class DocumentProperty {
-	private int		doclen;
-	private int		maxFreq;
-	private String	headline;
+	private int					doclen;
+	private int					maxFreq;
+	private String				headline;
+	private final Set<String>	words;
+
+	/**
+	 * Default constructor
+	 */
+	public DocumentProperty() {
+		this.words = new HashSet<>();
+	}
 
 	/**
 	 * @return the doclen
@@ -51,5 +62,12 @@ public class DocumentProperty {
 	 */
 	public void setHeadline(final String headline) {
 		this.headline = headline;
+	}
+
+	/**
+	 * @return the words
+	 */
+	public final Set<String> getWords() {
+		return this.words;
 	}
 }
