@@ -103,7 +103,7 @@ public class Parser {
 	/**
 	 * <pre>
 	 *  Handles:-
-	 *
+	 * 
 	 *  A. Upper and lower case words (e.g. "People", "people", "Apple", "apple")
 	 *  B. Words with dashes (e.g. "1996-97", "middle-class", "30-year", "tean-ager")
 	 *  C. Possessives (e.g. "sheriff's", "university's")
@@ -127,7 +127,7 @@ public class Parser {
 		text = text.replaceAll("[+^:,?;=%#&~`$!@*_)/(}{\\.]", "");
 
 		// Remove possessives
-		text = text.replaceAll("\\'", "");
+		text = text.replaceAll("\\'s", "");
 
 		// Replace - with space to count two words
 		text = text.replaceAll("-", " ");

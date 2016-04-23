@@ -142,7 +142,7 @@ public class Tokenization
 
 		int i = find(stems, "earthquake");
 		for (int j = 0; j < metric[i].length; j++) {
-			if (metric[i][j] == null) {
+			if (metric[i][j] == null || metric[i][j].u.equals("ecuador") || metric[i][j].v.equals("ecuador")) {
 				continue;
 			}
 
@@ -163,7 +163,7 @@ public class Tokenization
 
 		i = find(stems, "ecuador");
 		for (int j = 0; j < metric[i].length; j++) {
-			if (metric[i][j] == null) {
+			if (metric[i][j] == null || metric[i][j].u.equals("earthquake") || metric[i][j].v.equals("earthquake")) {
 				continue;
 			}
 
