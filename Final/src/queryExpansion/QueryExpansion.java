@@ -6,10 +6,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -48,15 +52,47 @@ public class QueryExpansion
 
 		final String query = "kung fu";
 		final long start = System.currentTimeMillis();
-		final Element[][] elements = getExpandedQuery(stopwords, query);
+		final String expanded = getExpandedQueryString(stopwords, query);
 		System.out.println("Time taken: " + (System.currentTimeMillis() - start) + " ms\n");
+		System.out.println(expanded);
+	}
+
+	/**
+	 * @param stopwords
+	 * @param query
+	 * @return
+	 * @throws IOException
+	 * @throws MalformedURLException
+	 * @throws JSONException
+	 * @throws FileNotFoundException
+	 */
+	public static String getExpandedQueryString(final File stopwords, final String query)
+			throws IOException,
+			MalformedURLException,
+			JSONException,
+			FileNotFoundException {
+		final Element[][] elements = getExpandedQuery(stopwords, query);
+
+		final List<Element> list = new ArrayList<>();
 		for (final Element[] elements2 : elements) {
 			for (final Element element : elements2) {
-				System.out.print(element + " ");
+				list.add(element);
 			}
-
-			System.out.println();
 		}
+
+		Collections.sort(list, new Comparator<Element>() {
+			@Override
+			public int compare(final Element o1, final Element o2) {
+				return o1.value >= o2.value ? 1 : -1;
+			}
+		});
+
+		final LinkedHashSet<String> set = new LinkedHashSet<>();
+		for (int i = list.size() - 1; i > 0; i--) {
+			set.add(list.get(i).v);
+		}
+
+		return query + " " + String.join(" ", set);
 	}
 
 	/**
