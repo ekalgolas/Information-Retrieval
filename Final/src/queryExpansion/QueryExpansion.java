@@ -49,10 +49,11 @@ public class QueryExpansion
 		// Validate command line arguments
 		final CommandLine cmd = validateArguments(args);
 		final File stopwords = new File(cmd.getOptionValue("stop"));
+		final String wordnet = "F:\\home\\ekal\\Softwares\\NLP\\WordNet-3.0\\dict";
 
 		final String query = "kung fu";
 		final long start = System.currentTimeMillis();
-		final String expanded = getExpandedQueryString(stopwords, query);
+		final String expanded = getExpandedQueryString(stopwords, query, wordnet);
 		System.out.println("Time taken: " + (System.currentTimeMillis() - start) + " ms\n");
 		System.out.println(expanded);
 	}
@@ -66,12 +67,12 @@ public class QueryExpansion
 	 * @throws JSONException
 	 * @throws FileNotFoundException
 	 */
-	public static String getExpandedQueryString(final File stopwords, final String query)
+	public static String getExpandedQueryString(final File stopwords, final String query, final String wordnet)
 			throws IOException,
 			MalformedURLException,
 			JSONException,
 			FileNotFoundException {
-		final Element[][] elements = getExpandedQuery(stopwords, query);
+		final Element[][] elements = getExpandedQuery(stopwords, query, wordnet);
 
 		final List<Element> list = new ArrayList<>();
 		for (final Element[] elements2 : elements) {
@@ -104,7 +105,7 @@ public class QueryExpansion
 	 * @throws JSONException
 	 * @throws FileNotFoundException
 	 */
-	public static Element[][] getExpandedQuery(final File stopwords, final String query)
+	public static Element[][] getExpandedQuery(final File stopwords, final String query, final String wordnet)
 			throws IOException,
 			MalformedURLException,
 			JSONException,
@@ -134,7 +135,7 @@ public class QueryExpansion
 		final HashMap<String, Map<Integer, Integer>> tokenMap = parser.getTokenMap();
 
 		// Call stemming
-		final Stemming stemming = new Stemming();
+		final Stemming stemming = new Stemming(wordnet);
 		stemming.stem(tokenMap);
 		final Map<String, Set<String>> stemsMap = stemming.getStemsMap();
 

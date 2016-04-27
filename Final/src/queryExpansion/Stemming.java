@@ -19,9 +19,9 @@ public class Stemming {
 	private final Map<String, Set<String>>	stemsMap;
 	private final WordnetStemmer			stemmer;
 
-	public Stemming() throws IOException {
+	public Stemming(final String wordnet) throws IOException {
 		this.stemsMap = new HashMap<>();
-		final Dictionary dict = new Dictionary(new File("F:\\home\\ekal\\Softwares\\NLP\\WordNet-3.0\\dict"));
+		final Dictionary dict = new Dictionary(new File(wordnet));
 		dict.open();
 		this.stemmer = new WordnetStemmer(dict);
 	}
