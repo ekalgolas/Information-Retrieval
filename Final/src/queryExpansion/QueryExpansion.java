@@ -51,7 +51,7 @@ public class QueryExpansion
 		final File stopwords = new File(cmd.getOptionValue("stop"));
 		final String wordnet = "F:\\home\\ekal\\Softwares\\NLP\\WordNet-3.0\\dict";
 
-		final String query = "kung fu";
+		final String query = "dr strange";
 		final long start = System.currentTimeMillis();
 		final String expanded = getExpandedQueryString(stopwords, query, wordnet);
 		System.out.println("Time taken: " + (System.currentTimeMillis() - start) + " ms\n");
@@ -127,7 +127,11 @@ public class QueryExpansion
 		final String[] documents = new String[10];
 		for (int i = 0; i < 10; i++)
 		{
-			documents[i] = arr.getJSONObject(i).getString("content");
+			try {
+				documents[i] = arr.getJSONObject(i).getString("content");
+			} catch (final Exception e) {
+				break;
+			}
 		}
 
 		// Call document parser
