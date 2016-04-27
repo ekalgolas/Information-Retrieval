@@ -51,7 +51,7 @@ public class QueryExpansion
 		final File stopwords = new File(cmd.getOptionValue("stop"));
 		final String wordnet = "F:\\home\\ekal\\Softwares\\NLP\\WordNet-3.0\\dict";
 
-		final String query = "marvel avengers";
+		final String query = "kung fu";
 		final long start = System.currentTimeMillis();
 		final String expanded = getExpandedQueryString(stopwords, query, wordnet);
 		System.out.println("Time taken: " + (System.currentTimeMillis() - start) + " ms\n");
@@ -193,15 +193,21 @@ public class QueryExpansion
 			}
 		}
 
-		return printTopN(norm, stems, query);
+		return printTopN(norm, stems, query, tokenMap, stemsMap);
 	}
 
 	/**
 	 * @param metric
 	 * @param stems
+	 * @param stemsMap
+	 * @param tokenMap
 	 * @return
 	 */
-	static Element[][] printTopN(final Element[][] metric, final String[] stems, final String query) {
+	static Element[][] printTopN(final Element[][] metric,
+			final String[] stems,
+			final String query,
+			final HashMap<String, Map<Integer, Integer>> tokenMap,
+			final Map<String, Set<String>> stemsMap) {
 		final Set<String> strings = new HashSet<>();
 		strings.addAll(Arrays.asList(query.split(" ")));
 
@@ -227,7 +233,11 @@ public class QueryExpansion
 					continue;
 				}
 
-				queue.add(metric[i][j]);
+				if (tokenMap.containsKey(metric[i][j].v)) {
+					queue.add(metric[i][j]);
+				} else {
+					queue.add(new Element(metric[i][j].u, stemsMap.get(metric[i][j].v).iterator().next(), metric[i][j].value));
+				}
 				if (queue.size() > 3) {
 					queue.poll();
 				}
