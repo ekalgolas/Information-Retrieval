@@ -51,7 +51,7 @@ public class QueryExpansion
 		final File stopwords = new File(cmd.getOptionValue("stop"));
 		final String wordnet = "F:\\home\\ekal\\Softwares\\NLP\\WordNet-3.0\\dict";
 
-		final String query = "deadpool";
+		final String query = "marvel avengers";
 		final long start = System.currentTimeMillis();
 		final String expanded = getExpandedQueryString(stopwords, query, wordnet);
 		System.out.println("Time taken: " + (System.currentTimeMillis() - start) + " ms\n");

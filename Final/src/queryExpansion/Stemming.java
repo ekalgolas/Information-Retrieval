@@ -36,43 +36,46 @@ public class Stemming {
 		final Set<String> keySet = tokenMap.keySet();
 		set.addAll(keySet);
 
-		final Set<String> stems = new HashSet<>();
+		Set<String> stems = new HashSet<>();
+		final POS[] values = new POS[] { POS.NOUN, POS.VERB, POS.ADJECTIVE, POS.ADVERB };
 		for (final String string1 : set) {
-			if (this.unstemmedSet.contains(string1)) {
+			boolean found = false;
+			for (final String string : this.unstemmedSet) {
+				if (string.contains(string1) || string1.contains(string)) {
+					found = true;
+					break;
+				}
+			}
+
+			if (found) {
 				continue;
 			}
 
-			for (final POS pos : POS.values()) {
+			for (final POS pos : values) {
 				stems.addAll(this.stemmer.findStems(string1, pos));
 			}
 		}
 
 		for (final String string1 : keySet) {
 			boolean found = false;
-			for (final POS pos : POS.values()) {
+			for (final POS pos : values) {
 				final List<String> findStems = this.stemmer.findStems(string1, pos);
 				for (final String string : findStems) {
 					if (stems.contains(string)) {
 						found = true;
-						if (!this.stemsMap.containsKey(string)) {
-							this.stemsMap.put(string, new HashSet<String>());
-						}
-
+						this.stemsMap.putIfAbsent(string, new HashSet<String>());
 						this.stemsMap.get(string).add(string1);
 					}
 				}
 			}
 
 			if (!found) {
-				if (!this.stemsMap.containsKey(string1)) {
-					this.stemsMap.put(string1, new HashSet<String>());
-				}
-
+				this.stemsMap.putIfAbsent(string1, new HashSet<String>());
 				this.stemsMap.get(string1).add(string1);
 			}
 		}
 
-		stems.clear();
+		stems = new HashSet<>();
 		stems.addAll(this.stemsMap.keySet());
 		for (final String string : stems) {
 			final Set<String> tokensSet = this.stemsMap.get(string);
@@ -108,7 +111,7 @@ public class Stemming {
 				}
 			}
 
-			if (!found) {
+			if (!found || string.length() < 3) {
 				this.stemsMap.remove(string);
 			}
 		}

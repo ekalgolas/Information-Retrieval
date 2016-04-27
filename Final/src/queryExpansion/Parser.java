@@ -84,7 +84,7 @@ public class Parser {
 			num++;
 
 			// Skip if word is empty
-			if (word == null || word.length() < 2 || this.stopwords.contains(word)) {
+			if (word == null || word.length() < 3 || this.stopwords.contains(word)) {
 				continue;
 			}
 
@@ -129,6 +129,7 @@ public class Parser {
 
 		// Replace - with space to count two words
 		text = text.replaceAll("-", " ");
+		text = text.replaceAll("_", " ");
 
 		// Remove multiple white spaces
 		text = text.replaceAll("\\s+", " ");
