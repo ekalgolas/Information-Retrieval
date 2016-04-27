@@ -2,6 +2,7 @@ package queryExpansion;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,12 +19,16 @@ import edu.mit.jwi.morph.WordnetStemmer;
 public class Stemming {
 	private final Map<String, Set<String>>	stemsMap;
 	private final WordnetStemmer			stemmer;
+	private final Set<String>				unstemmedSet;
 
-	public Stemming(final String wordnet) throws IOException {
+	public Stemming(final String wordnet, final String query) throws IOException {
 		this.stemsMap = new HashMap<>();
 		final Dictionary dict = new Dictionary(new File(wordnet));
 		dict.open();
 		this.stemmer = new WordnetStemmer(dict);
+
+		this.unstemmedSet = new HashSet<>();
+		this.unstemmedSet.addAll(Arrays.asList(query.split(" ")));
 	}
 
 	public void stem(final HashMap<String, Map<Integer, Integer>> tokenMap) {
@@ -33,6 +38,10 @@ public class Stemming {
 
 		final Set<String> stems = new HashSet<>();
 		for (final String string1 : set) {
+			if (this.unstemmedSet.contains(string1)) {
+				continue;
+			}
+
 			for (final POS pos : POS.values()) {
 				stems.addAll(this.stemmer.findStems(string1, pos));
 			}

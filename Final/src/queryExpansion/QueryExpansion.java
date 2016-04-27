@@ -51,7 +51,7 @@ public class QueryExpansion
 		final File stopwords = new File(cmd.getOptionValue("stop"));
 		final String wordnet = "F:\\home\\ekal\\Softwares\\NLP\\WordNet-3.0\\dict";
 
-		final String query = "kung fu";
+		final String query = "deadpool";
 		final long start = System.currentTimeMillis();
 		final String expanded = getExpandedQueryString(stopwords, query, wordnet);
 		System.out.println("Time taken: " + (System.currentTimeMillis() - start) + " ms\n");
@@ -77,7 +77,9 @@ public class QueryExpansion
 		final List<Element> list = new ArrayList<>();
 		for (final Element[] elements2 : elements) {
 			for (final Element element : elements2) {
-				list.add(element);
+				if (element != null) {
+					list.add(element);
+				}
 			}
 		}
 
@@ -135,7 +137,7 @@ public class QueryExpansion
 		final HashMap<String, Map<Integer, Integer>> tokenMap = parser.getTokenMap();
 
 		// Call stemming
-		final Stemming stemming = new Stemming(wordnet);
+		final Stemming stemming = new Stemming(wordnet, query);
 		stemming.stem(tokenMap);
 		final Map<String, Set<String>> stemsMap = stemming.getStemsMap();
 
@@ -215,6 +217,10 @@ public class QueryExpansion
 			});
 
 			final int i = find(stems, string);
+			if (i == -1) {
+				continue;
+			}
+
 			for (int j = 0; j < metric[i].length; j++) {
 				if (metric[i][j] == null || strings.contains(metric[i][j].u) && !metric[i][j].u.equals(string) || strings.contains(metric[i][j].v) &&
 						!metric[i][j].v.equals(string)) {
